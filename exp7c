@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int rectangle(int l, int b) {
+  return l * b;
+}
+
+int circle(int r) {
+  return 3.14 * r * r;
+}
+
+int triangle(int a, int b, int c) {
+  return (a + b + c) / 2 * (a - b + c - a);
+}
+
+int main() 
+{
+  int a, b, c;
+  printf("Enter r or c or t for Rectangle or Circle or Triangle: ");
+  char shape;
+  scanf(" %c", & shape);
+  switch (shape)
+  {
+  case 'r':
+    printf("Enter length and breadth: ");
+    scanf("%d %d", & a, & b);
+    printf("Area of Rectangle is: %d", rectangle(a, b));
+    break;
+  case 'c':
+ printf("Enter radius: ");
+    scanf("%d", & a);
+    printf("Area of Circle is: %d", circle(a));
+    break;
+  case 't':
+    printf("Enter three side: ");
+    scanf("%d%d%d", & a, & b, & c);
+    printf("Area of Triangle is: %d", triangle(a, b, c));
+    break;
+  default:
+    printf("Invalid Input");
+  }
+}
