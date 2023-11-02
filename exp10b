@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_WORD_LENGTH 100
+
+int main() {
+    FILE *file;
+    char filename[100];
+    char word[MAX_WORD_LENGTH];
+    char longestWord[MAX_WORD_LENGTH] = "";
+    int wordCount = 0;
+    int longestWordLength = 0;
+
+    printf("Enter the filename: ");
+    scanf("%s", filename);
+
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Unable to open the file.\n");
+        return 1;
+    }
+
+    while (fscanf(file, "%s", word) != EOF) {
+        // Increment the word count
+        wordCount++;
+
+        // Check if the current word is longer than the longest word found so far
+        if (strlen(word) > longestWordLength) {
+            longestWordLength = strlen(word);
+            strcpy(longestWord, word);
+        }
+    }
+
+    // Close the file
+    fclose(file);
+
+    printf("Word count: %d\n", wordCount);
+    printf("Longest word: %s\n", longestWord);
+
+    return 0;
+}
