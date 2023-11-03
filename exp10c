@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Define the maximum number of students
+#define MAX_STUDENTS 100
+
+// Structure to store student details
+struct Student {
+    char name[50];
+    int rollNumber;
+    float marks;
+};
+
+// Function to add a new student record to the file
+void addStudentToFile(FILE* file, struct Student student) {
+    fprintf(file, "%s %d %.2f\n", student.name, student.rollNumber, student.marks);
+}
+
+// Function to display all student records from the file
+void displayStudentsFromFile(FILE* file) {
+    struct Student student;
+    printf("Student Details:\n");
+    printf("Name\tRoll Number\tMarks\n");
+    while (fscanf(file, "%s %d %f", student.name, &student.rollNumber, &student.marks) != EOF) {
+        printf("%s\t%d\t\t%.2f\n", student.name, student.rollNumber, student.marks);
+    }
+}
+
+int main() {
+    FILE *file;
+    char fileName[] = "student_records.txt";
+    int choice;
+
+    // Open the file for reading and writing
+    file = fopen(fileName, "a+");  // "a+" mode for both append and read
+
+    if (file == NULL) {
+        printf("Unable to open the file.\n");
+        return 1;
+    }
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Add a student record\n");
+        printf("2. Display all student records\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                struct Student newStudent;
+                printf("Enter student name: ");
+                scanf("%s", newStudent.name);
+                printf("Enter roll number: ");
+                scanf("%d", &newStudent.rollNumber);
+                printf("Enter marks: ");
+                scanf("%f", &newStudent.marks);
+
+                addStudentToFile(file, newStudent);
+                printf("Student record added successfully.\n");
+                break;
+
+            case 2:
+                // Move the file pointer to the beginning of the file
+                rewind(file);
+                displayStudentsFromFile(file);
+                break;
+
+            case 3:
+                printf("Exiting program.\n");
+                break;
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+
+    } while (choice != 3);
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
