@@ -1,17 +1,22 @@
-#include<stdio.h>
+#include <stdio.h>
 
-void main()
-{
-    int hrs, rate;
-    float gross, tax, net;
-    printf("Enter Total Work Hours: ");
-    scanf("%d", &hrs);
-    printf("Enter Rate per hour: ");
-    scanf("%d", &rate);
-    gross = hrs * rate;
-    tax = gross * 0.20;
-    net = gross - tax;
-    printf("Gross Pay: %.2f\n", gross);
-    printf("Tax: %.2f\n", tax);
-    printf("Net Pay: %.2f\n", net);
+float calculateNetSalary(float basicSalary, float allowances, float deductions) {
+    float grossSalary = basicSalary + allowances;
+    float netSalary = grossSalary - deductions;
+    return netSalary;
+}
+
+int main() {
+    float basicSalary, allowances, deductions, netSalary;
+
+    printf("Enter the basic salary: ");
+    scanf("%f", &basicSalary);
+    printf("Enter the allowances: ");
+    scanf("%f", &allowances);
+    printf("Enter the deductions: ");
+    scanf("%f", &deductions);
+
+    netSalary = calculateNetSalary(basicSalary, allowances, deductions);
+    printf("Net Salary: $%.2f\n", netSalary);
+    return 0;
 }
